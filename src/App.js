@@ -1,6 +1,7 @@
 import './App.css';
 import ReactFCCtest from 'react-fcctest';
 import ManList from './components/ManList';
+import Timer from './components/Timer';
 
 const manipulateTime = [
   {
@@ -23,14 +24,8 @@ const App = () => {
   return (
     <div className='App'>
     <ReactFCCtest />
-      {/* Need to abstract these into smaller components! */}
-      <ManList manipulateTime={manipulateTime}/>
-      <div className="timer">
-        <div id="timer-label">Session</div>
-        <div id="time-left"></div>
-        <button id="start_stop">start/stop</button>
-        <button id="reset">reset</button>
-      </div>
+      <ManList manipulateTime={manipulateTime} />
+      <Timer />
     </div>
   );
 }
