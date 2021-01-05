@@ -23,7 +23,7 @@ const manipulateTime = [
 const App = () => {
   return (
     <div className='App'>
-    <ReactFCCtest />
+      <ReactFCCtest />
       <ManList manipulateTime={manipulateTime} />
       <Timer />
     </div>
