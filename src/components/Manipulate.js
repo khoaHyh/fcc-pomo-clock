@@ -24,7 +24,7 @@ const Manipulate = ({ label, decrement, length, increment, text }) => {
         console.log(event.target.id);
         if (reDecrement.test(event.target.id) && display > 0) {
             setDisplay(parseInt(display) - 1);
-        } else if (reIncrement.test(event.target.id)) {
+        } else if (reIncrement.test(event.target.id) && display < 60) {
             setDisplay(parseInt(display) + 1);
         }
 
