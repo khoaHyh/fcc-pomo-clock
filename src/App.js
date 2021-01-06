@@ -21,11 +21,15 @@ const manipulateTime = [
 ]
 
 const App = () => {
+  const time = new Date();
+  // 25 minute timer
+  time.setSeconds(time.getSeconds() + 1500);
+
   return (
     <div className='App'>
       <ReactFCCtest />
       <ManList manipulateTime={manipulateTime} />
-      <Timer />
+      <Timer expiryTimestamp ={time} />
     </div>
   );
 }
