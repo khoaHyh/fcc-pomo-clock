@@ -11,7 +11,8 @@ const ManipulateTime = styled.div`
 `
 
 let initialValue = 5;
-let re = /decrement/i;
+let reDecrement = /decrement/i;
+let reIncrement = /increment/i;
 
 const Manipulate = ({ label, decrement, length, increment, text }) => {
     if (label === 'session-label') {
@@ -19,14 +20,14 @@ const Manipulate = ({ label, decrement, length, increment, text }) => {
     }
     const [display, setDisplay] = useState(initialValue);
 
-
     const handleClick = (event) => {
         console.log(event.target.id);
-        if (re.test(event.target.id) && display > 0) {
-            setDisplay(display - 1);
-        } else {
-            setDisplay(display + 1);
+        if (reDecrement.test(event.target.id) && display > 0) {
+            setDisplay(parseInt(display) - 1);
+        } else if (reIncrement.test(event.target.id)) {
+            setDisplay(parseInt(display) + 1);
         }
+
     }
 
     return (
