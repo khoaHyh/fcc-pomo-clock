@@ -12,7 +12,7 @@ const ManList = ({ manipulateTime, handleTime }) => {
                     length={manipulateTime[i].length}
                     increment={manipulateTime[i].increment}
                     text={manipulateTime[i].text}
-                    updateDisplay={handleTime}
+                    handleTime={handleTime}
                 />
             );
         })

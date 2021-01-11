@@ -33,7 +33,7 @@ const Timer = ({ expiryTimestamp }) => {
             <div id="timer-label">Session</div>
             <div id="time-left">
                 <span>{minutes}</span>:
-                <span>{seconds}</span>
+                <span>{seconds === 0 ? '00': seconds}</span>
             </div>
             <button id="start_stop" onClick={handleClick}>start/stop</button>
             <button id="reset" onClick={() => {
