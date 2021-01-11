@@ -1,3 +1,4 @@
+import { useState, useEffect} from 'react';
 import './App.css';
 import ReactFCCtest from 'react-fcctest';
 import ManList from './components/ManList';
@@ -20,15 +21,23 @@ const manipulateTime = [
   }
 ]
 
+let initValue = 25;
+
 const App = () => {
+  const [display, setDisplay] = useState(initValue);
+
   const time = new Date();
   // 25 minute timer
-  time.setSeconds(time.getSeconds() + 1500);
+  time.setSeconds(time.getSeconds() + (display * 60));
+
+  const handleTime = (time) => {
+    return setDisplay(time);
+  }
 
   return (
     <div className='App'>
       <ReactFCCtest />
-      <ManList manipulateTime={manipulateTime} />
+      <ManList manipulateTime={manipulateTime} updateTime={handleTime} />
       <Timer expiryTimestamp ={time} />
     </div>
   );

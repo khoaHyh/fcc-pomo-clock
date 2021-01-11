@@ -25,18 +25,14 @@ const Timer = ({ expiryTimestamp }) => {
     useEffect(() => pause(), []);
 
     const handleClick = () => {
-        if (isRunning) {
-            pause();
-        } else {
-            resume();
-        }
+        isRunning ? pause() : resume();
     }
 
     return (
         <TimerContainer className="timer">
             <div id="timer-label">Session</div>
             <div id="time-left">
-                <span>{minutes}:</span>
+                <span>{minutes}</span>:
                 <span>{seconds}</span>
             </div>
             <button id="start_stop" onClick={handleClick}>start/stop</button>
