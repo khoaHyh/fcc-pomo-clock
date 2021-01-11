@@ -11,7 +11,7 @@ const TimerContainer = styled.div`
     align-items: center;
 `
 
-const Timer = ({ expiryTimestamp }) => {
+const Timer = ({ expiryTimestamp, seshLength }) => {
     const {
         seconds, 
         minutes, 
@@ -23,6 +23,17 @@ const Timer = ({ expiryTimestamp }) => {
 
     // Pause timer on page load
     useEffect(() => pause(), []);
+    
+    useEffect(() => {
+        updateSesh();
+    }, [seshLength]);
+
+    const updateSesh = () => {
+        const time = new Date();
+        time.setSeconds(time.getSeconds() + (seshLength * 60));
+        restart(time);
+        pause();
+    }
 
     const handleClick = () => {
         isRunning ? pause() : resume();
@@ -36,12 +47,7 @@ const Timer = ({ expiryTimestamp }) => {
                 <span>{seconds === 0 ? '00': seconds}</span>
             </div>
             <button id="start_stop" onClick={handleClick}>start/stop</button>
-            <button id="reset" onClick={() => {
-                // Restart to 25 minute timer
-                const time = new Date();
-                time.setSeconds(time.getSeconds() + 1500);
-                restart(time);
-            }}>reset</button>
+            <button id="reset" onClick={updateSesh}>reset</button>
         </TimerContainer>
     );
 }

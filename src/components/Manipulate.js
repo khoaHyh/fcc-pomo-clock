@@ -29,7 +29,9 @@ const Manipulate = ({ label, decrement, length, increment, text, handleTime }) =
         }
     }
 
-    handleTime(display);
+    if (label === 'session-label') {
+        handleTime(display);
+    }
 
     return (
         <ManipulateTime className="manipulate-time">

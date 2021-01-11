@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import ReactFCCtest from 'react-fcctest';
 import ManList from './components/ManList';
@@ -21,19 +22,21 @@ const manipulateTime = [
 ];
 
 const App = () => {
+  const [seshLength, setSeshLength] = useState();
+
   const time = new Date();
   // 25 minute timer
   time.setSeconds(time.getSeconds() + (25 * 60));
 
   const handleTime = (display) => {
-    time.setSeconds(time.getSeconds() + (display * 60));
+    setSeshLength(display);
   }
 
   return (
     <div className='App'>
       <ReactFCCtest />
       <ManList manipulateTime={manipulateTime} handleTime={handleTime} />
-      <Timer expiryTimestamp ={time} />
+      <Timer expiryTimestamp ={time} seshLength={seshLength} />
     </div>
   );
 }
