@@ -16,8 +16,6 @@ const ManipulateTime = styled.div`
 `
 
 let initValue;
-let reDecrement = /decrement/i;
-let reIncrement = /increment/i;
 
 const Manipulate = ({ label, decrement, length, increment, text }) => {
     if (label === 'session-label') {
@@ -28,21 +26,20 @@ const Manipulate = ({ label, decrement, length, increment, text }) => {
 
     const [display, setDisplay] = useState(initValue);
 
-    const handleClick = (event) => {
-        // Add conditional to only setDisplay when clock is not running
-        if (reDecrement.test(event.target.id) && display > 0) {
-            setDisplay(parseInt(display) - 1);
-        } else if (reIncrement.test(event.target.id) & display < 60) {
-            setDisplay(parseInt(display) + 1);
-        }
+    const handleDecrement = () => {
+        if (display !== 1) setDisplay(parseInt(display) - 1);
+    }
+
+    const handleIncrement = () => {
+        if (display !== 60) setDisplay(parseInt(display) + 1);
     }
 
     return (
         <ManipulateTime className="manipulate-time">
             <div id={label}>{text}</div>
-            <button id={decrement} onClick={handleClick}>-</button>
+            <button id={decrement} onClick={handleDecrement}>-</button>
             <div id={length}>{display}</div>
-            <button id={increment} onClick={handleClick}>+</button>
+            <button id={increment} onClick={handleIncrement}>+</button>
         </ManipulateTime>
     );
 }

@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import './App.css';
 import ReactFCCtest from 'react-fcctest';
 import ManList from './components/ManList';
 import styled from 'styled-components';
-import { useTimer } from 'react-timer-hook';
 
 const manipulateTime = [
   {
@@ -38,33 +36,16 @@ const TimerContainer = styled.div`
 
 const App = () => {
 
-  const time = new Date();
-  // 25 minute timer
-  time.setSeconds(time.getSeconds() + (25 * 60));
-
-  const {
-      seconds, 
-      minutes, 
-      isRunning,
-      resume,
-      pause,
-      restart,
-  } = useTimer({ onExpire: () => console.warn('onExpire called') }); 
-
-  const handleClick = () => {
-    isRunning ? pause() : resume();
-  }
-
   return (
     <div className='App'>
       <ReactFCCtest />
       <ManList manipulateTime={manipulateTime} /> 
       <TimerContainer className="timer">
         <div id="timer-label">Session</div>
-        <button id="start_stop" onClick={handleClick}>start/stop</button>
+        <button id="start_stop">start/stop</button>
         <div id="time-left">
-          <span>{minutes}</span>:
-          <span>{seconds === 0 ? '00': seconds}</span>
+          <span></span>:
+          <span></span>
         </div>
         <button id="reset">reset</button>
       </TimerContainer>
