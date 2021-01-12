@@ -3,21 +3,29 @@ import styled from 'styled-components';
 
 const ManipulateTime = styled.div`
     margin: 0.75rem;
-    border: solid 1px blue;
+    padding: 0.5rem;
+    border: solid 1px black;
+    border-radius: 0.25rem;
+    background-color: #333;
+    color: white;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 8rem;
 `
 
-let initValue = 5;
+let initValue;
 let reDecrement = /decrement/i;
 let reIncrement = /increment/i;
 
-const Manipulate = ({ label, decrement, length, increment, text, handleTime }) => {
+const Manipulate = ({ label, decrement, length, increment, text }) => {
     if (label === 'session-label') {
         initValue = 25;
+    } else {
+        initValue = 5;
     }
+
     const [display, setDisplay] = useState(initValue);
 
     const handleClick = (event) => {
@@ -27,10 +35,6 @@ const Manipulate = ({ label, decrement, length, increment, text, handleTime }) =
         } else if (reIncrement.test(event.target.id) & display < 60) {
             setDisplay(parseInt(display) + 1);
         }
-    }
-
-    if (label === 'session-label') {
-        handleTime(display);
     }
 
     return (

@@ -1,6 +1,6 @@
 import Manipulate from './Manipulate';
 
-const ManList = ({ manipulateTime, handleTime }) => {
+const ManList = ({ manipulateTime }) => {
 
     return (
         manipulateTime.map((e, i) => {
@@ -12,7 +12,6 @@ const ManList = ({ manipulateTime, handleTime }) => {
                     length={manipulateTime[i].length}
                     increment={manipulateTime[i].increment}
                     text={manipulateTime[i].text}
-                    handleTime={handleTime}
                 />
             );
         })
