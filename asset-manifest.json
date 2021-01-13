@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/fcc-pomo-clock/static/css/main.1eb39b40.chunk.css",
+    "main.js": "/fcc-pomo-clock/static/js/main.29a1eb83.chunk.js",
+    "main.js.map": "/fcc-pomo-clock/static/js/main.29a1eb83.chunk.js.map",
+    "runtime-main.js": "/fcc-pomo-clock/static/js/runtime-main.44d22672.js",
+    "runtime-main.js.map": "/fcc-pomo-clock/static/js/runtime-main.44d22672.js.map",
+    "static/js/2.58ca9706.chunk.js": "/fcc-pomo-clock/static/js/2.58ca9706.chunk.js",
+    "static/js/2.58ca9706.chunk.js.map": "/fcc-pomo-clock/static/js/2.58ca9706.chunk.js.map",
+    "static/js/3.ab57ad50.chunk.js": "/fcc-pomo-clock/static/js/3.ab57ad50.chunk.js",
+    "static/js/3.ab57ad50.chunk.js.map": "/fcc-pomo-clock/static/js/3.ab57ad50.chunk.js.map",
+    "index.html": "/fcc-pomo-clock/index.html",
+    "static/css/main.1eb39b40.chunk.css.map": "/fcc-pomo-clock/static/css/main.1eb39b40.chunk.css.map",
+    "static/js/2.58ca9706.chunk.js.LICENSE.txt": "/fcc-pomo-clock/static/js/2.58ca9706.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.44d22672.js",
+    "static/js/2.58ca9706.chunk.js",
+    "static/css/main.1eb39b40.chunk.css",
+    "static/js/main.29a1eb83.chunk.js"
+  ]
+}
