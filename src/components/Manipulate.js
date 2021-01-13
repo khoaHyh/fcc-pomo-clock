@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 const ManipulateTime = styled.div`
@@ -15,31 +14,51 @@ const ManipulateTime = styled.div`
     width: 8rem;
 `
 
-let initValue;
+const Button = styled.button`
+    margin: 0.25rem;
+    padding: 0.2rem;
+    width: 3.5rem;
+    border: solid 1px grey;
+    border-radius: 0.25rem;
+    cursor:pointer;
+    background-color: white;
 
-const Manipulate = ({ label, decrement, length, increment, text }) => {
-    if (label === 'session-label') {
-        initValue = 25;
-    } else {
-        initValue = 5;
+    &:hover {
+        background-color: #e1e1e1;
     }
+`
 
-    const [display, setDisplay] = useState(initValue);
+// let reInc = /increment/i;
+let reDec = /decrement/i;
 
-    const handleDecrement = () => {
-        if (display !== 1) setDisplay(parseInt(display) - 1);
-    }
-
-    const handleIncrement = () => {
-        if (display !== 60) setDisplay(parseInt(display) + 1);
+const Manipulate = (
+    { 
+        label, 
+        decrement, 
+        length, 
+        increment, 
+        text,
+        breakTime,
+        sessionTime,
+        handleDecrement,
+        handleIncrement
+    }) => {
+    
+    // Updates the timer lengths correctly using element id
+    const handleClick = (event) => {
+        if (reDec.test(event.target.id)) {
+            handleDecrement(label);
+        } else {
+            handleIncrement(label);
+        }        
     }
 
     return (
         <ManipulateTime className="manipulate-time">
             <div id={label}>{text}</div>
-            <button id={decrement} onClick={handleDecrement}>-</button>
-            <div id={length}>{display}</div>
-            <button id={increment} onClick={handleIncrement}>+</button>
+            <Button id={decrement} onClick={handleClick}>-</Button>
+            <div id={length}>{label === 'break-label' ? breakTime : sessionTime}</div>
+            <Button id={increment} onClick={handleClick}>+</Button>
         </ManipulateTime>
     );
 }

@@ -1,6 +1,14 @@
 import Manipulate from './Manipulate';
 
-const ManList = ({ manipulateTime }) => {
+// Creates each timer-length handler and passes the necessary props
+const ManList = (
+    { 
+        manipulateTime,
+        breakTime,
+        sessionTime,
+        handleDecrement,
+        handleIncrement
+    }) => {
 
     return (
         manipulateTime.map((e, i) => {
@@ -12,6 +20,10 @@ const ManList = ({ manipulateTime }) => {
                     length={manipulateTime[i].length}
                     increment={manipulateTime[i].increment}
                     text={manipulateTime[i].text}
+                    breakTime={breakTime}
+                    sessionTime={sessionTime}
+                    handleDecrement={handleDecrement}
+                    handleIncrement={handleIncrement}
                 />
             );
         })
