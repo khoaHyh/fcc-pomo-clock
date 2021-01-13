@@ -158,7 +158,7 @@ const App = () => {
         }
       } else {
         if (!paused || manipulatedSesh) {
-          startTimer(sessionTime * 60)
+          startTimer(sessionTime * 60);
         } else {
           startTimer(time);
         }
@@ -186,8 +186,6 @@ const App = () => {
     setPaused(false);
     setManipulatedBreak(false);
     setManipulatedSesh(false);
-    console.log('break: ', breakTime);
-    console.log('session: ', sessionTime);
     let minutes;
     let seconds;
     let activeTimer = setInterval(() => {
@@ -220,7 +218,7 @@ const App = () => {
   const timesUp = (time) => {
     setIsRunning(false);
     clearInterval(timerId);
-    startTimer(time * 60);
+    startTimer((time * 60) + 1);
   }
 
   const playSound = () => {
