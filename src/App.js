@@ -66,7 +66,9 @@ const App = () => {
   const [currentTime, setCurrentTime] = useState('25:00');
   const [time, setTime] = useState(1500);
   const [paused, setPaused] = useState(false);
-  const [manipulated, setManipulated] = useState(false);
+  const [manipulatedSesh, setManipulatedSesh] = useState(false);
+  const [manipulatedBreak, setManipulatedBreak] = useState(false);
+  const [resetFlag, setResetFlag] = useState(false);
   const initRender = useRef(true);
 
   // Decrements the session or break length
@@ -101,18 +103,41 @@ const App = () => {
 
   // Updates timer when session length is manipulated
   useEffect(() => {
-    setCurrentTime(`${sessionTime}:00`);
-    setManipulated(true);
+    if (tLabel === 'Session') {
+      if (sessionTime < 10) {
+        setCurrentTime(`0${sessionTime}:00`);
+      } else {
+        setCurrentTime(`${sessionTime}:00`);
+      }
+    }
+    setManipulatedSesh(true);
   }, [sessionTime]);
+
+  useEffect(() => {
+    if (tLabel === 'Break') {
+      if (breakTime < 10) {
+        setCurrentTime(`0${breakTime}:00`);
+      } else { 
+        setCurrentTime(`${breakTime}:00`);
+      }
+    }
+    setManipulatedBreak(true);
+  }, [breakTime]);
 
   useEffect(() => {
     if (initRender.current) {
       initRender.current = false;
       return;
     }
-    tLabel === 'Break'
-    ? timesUp(breakTime, 'Break')
-    : timesUp(sessionTime, 'Session');
+
+    if (!resetFlag) {
+      tLabel === 'Break'
+      ? timesUp(breakTime, 'Break')
+      : timesUp(sessionTime, 'Session');
+    } else if (tLabel === 'Break') {
+      timesUp(breakTime, 'Break');
+    }
+    setResetFlag(false);
   }, [tLabel]);
 
   const handleTimer = () => {
@@ -124,13 +149,20 @@ const App = () => {
       // Depending on the label, whether the timer has been paused, or
       // if the lengths have been manipulated it will start the timer with
       // the appropriate length
-      tLabel === 'Break'
-      ? startTimer(breakTime * 60)
-      : !paused
-        ? startTimer(sessionTime * 60)
-        : manipulated
-          ? startTimer(sessionTime * 60)
-          : startTimer(time);
+
+      if (tLabel === 'Break') {
+        if (!paused || manipulatedBreak) {
+          startTimer(breakTime * 60);
+        } else {
+          startTimer(time);
+        }
+      } else {
+        if (!paused || manipulatedSesh) {
+          startTimer(sessionTime * 60)
+        } else {
+          startTimer(time);
+        }
+      }
     }
   }
 
@@ -139,19 +171,23 @@ const App = () => {
     setCurrentTime('25:00');
     setIsRunning(false);
     setPaused(false);
-    setManipulated(false);
+    setManipulatedSesh(false);
+    setManipulatedBreak(false);
     setBreakTime(5);
     setSessionTime(25);
-    initRender.current = true;
     setTlabel('Session');
     sound.pause();
     sound.currentTime = 0;
+    setResetFlag(true);
   }
 
   const startTimer = (duration) => {
     setIsRunning(true);
     setPaused(false);
-    setManipulated(false);
+    setManipulatedBreak(false);
+    setManipulatedSesh(false);
+    console.log('break: ', breakTime);
+    console.log('session: ', sessionTime);
     let minutes;
     let seconds;
     let activeTimer = setInterval(() => {
