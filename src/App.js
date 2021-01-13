@@ -58,16 +58,16 @@ let sound;
 
 const App = () => {
   const [tLabel, setTlabel] = useState('Session');
+  // const [cycle, setCycle] = useState('Session');
   const [sessionTime, setSessionTime] = useState(25);
   const [breakTime, setBreakTime] = useState(5);
-  const [timerId, setTimerId] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [timerId, setTimerId] = useState(0);
   const [currentTime, setCurrentTime] = useState('25:00');
   const [time, setTime] = useState(1500);
   const [paused, setPaused] = useState(false);
   const [manipulated, setManipulated] = useState(false);
-  const [cycle, setCycle] = useState('Session');
-  const isFirstRun = useRef(true);
+  const initRender = useRef(true);
 
   // Decrements the session or break length
   const handleDecrement = (label) => {
@@ -105,16 +105,15 @@ const App = () => {
     setManipulated(true);
   }, [sessionTime]);
 
-  // Starts another timer and changes label when the other runs out
   useEffect(() => {
-    if (isFirstRun.current) {
-      isFirstRun.current = false;
+    if (initRender.current) {
+      initRender.current = false;
       return;
     }
-    tLabel === 'Session'
+    tLabel === 'Break'
     ? timesUp(breakTime, 'Break')
     : timesUp(sessionTime, 'Session');
-  }, [cycle]);
+  }, [tLabel]);
 
   const handleTimer = () => {
     if (isRunning) {
@@ -143,6 +142,7 @@ const App = () => {
     setManipulated(false);
     setBreakTime(5);
     setSessionTime(25);
+    initRender.current = true;
     setTlabel('Session');
     sound.pause();
     sound.currentTime = 0;
@@ -154,8 +154,8 @@ const App = () => {
     setManipulated(false);
     let minutes;
     let seconds;
-    let currentTimer = setInterval(() => {
-      setTimerId(currentTimer);
+    let activeTimer = setInterval(() => {
+      setTimerId(activeTimer);
       duration--;
       setTime(duration);
       minutes = Math.floor(duration / 60);
@@ -168,23 +168,20 @@ const App = () => {
       if (duration === 0) {
         playSound();
         if (tLabel === 'Session') {
-          // timesUp(breakTime, 'Break');
-          // setTlabel('Break');
-          // duration = breakTime * 60;
-          setCycle('Break');
+          clearInterval(activeTimer);
+          setTlabel('Break');
+          return;
         } else {
-          // timesUp(sessionTime, 'Session');
-          // setTlabel('Session');
-          // duration = sessionTime * 60;
-          setCycle('Session');
+          clearInterval(activeTimer);
+          setTlabel('Session');
+          return;
         }
       }
     }, 1000);
   }
 
   // Functions to run when time runs out
-  const timesUp = (time, label) => {
-    setTlabel(label);
+  const timesUp = (time) => {
     setIsRunning(false);
     clearInterval(timerId);
     startTimer(time * 60);
@@ -192,6 +189,7 @@ const App = () => {
 
   const playSound = () => {
     sound.currentTime = 0;
+    sound.volume = 0.5;
     sound.play().catch(err => console.log(err));
   }
 
@@ -211,7 +209,11 @@ const App = () => {
           <div id="time-left">{currentTime}</div>
           <Button id="reset" onClick={reset}>reset</Button>
       </TimerContainer>
-      <audio id='beep' ref={(element) => {sound = element}} src='https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav' />
+      <audio 
+        id='beep' 
+        ref={(element) => {sound = element}}
+        src='https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav' 
+      />
     </div>
   );
 }
